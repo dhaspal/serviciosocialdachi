@@ -1,0 +1,11 @@
+export type SectionId =
+  | 'inicio'
+  | 'mision'
+  | 'historia'
+  | 'directivos'
+  | 'catalogo'
+  | 'galeria'
+  | 'ubicacion'
+  | 'colaboradores'
+  | 'blog'
+  | 'admin'

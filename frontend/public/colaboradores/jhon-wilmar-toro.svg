@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Jhon Wilmar Toro Zapata">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d9e75"/>
+      <stop offset="100%" stop-color="#2c1810"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <circle cx="200" cy="175" r="72" fill="rgba(255,255,255,0.18)"/>
+  <ellipse cx="200" cy="360" rx="110" ry="95" fill="rgba(255,255,255,0.14)"/>
+  <text x="200" y="455" text-anchor="middle" fill="#fff8f0" font-family="Nunito, sans-serif" font-size="28" font-weight="700">JWT</text>
+</svg>

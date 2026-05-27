@@ -1,0 +1,14 @@
+# MongoDB local para desarrollo (evita depender solo de Atlas).
+# Uso: docker compose up -d
+# Luego en .env: MONGODB_URI=mongodb://localhost:27017
+
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - servicio_social_mongo_data:/data/db
+
+volumes:
+  servicio_social_mongo_data:

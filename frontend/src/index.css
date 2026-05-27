@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --inst-salmon: #e8553e;
+  --inst-gold: #f0a500;
+  --inst-teal: #1d9e75;
+  --inst-deep: #2c1810;
+  --inst-cream: #fff8f0;
+  --inst-pink: #ff6b8a;
+  --inst-blue: #4a90d9;
+  --inst-warm-white: #fffdf8;
+  --inst-space-inline: clamp(0.75rem, 3.5vw, 2rem);
+}
+
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: var(--inst-cream);
+  color: var(--inst-deep);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  min-width: 280px;
+}
+
+#root {
+  min-height: 100dvh;
+  min-height: 100svh;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  display: flex;
+  flex-direction: column;
+}
+
+.site-wrapper {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--inst-cream);
+  border-radius: 0;
+  /* overflow-y visible permite position:sticky en la barra de navegación */
+  overflow-x: clip;
+  overflow-y: visible;
+  margin: 0;
+  box-shadow: none;
+  max-width: none;
+}
+
+/**
+ * Hover: ligero crecimiento al apuntar (botones y envíos).
+ * Los enlaces con estilo de botón se cubren en sus hojas de estilo.
+ */
+button:not(:disabled),
+input[type='submit']:not(:disabled),
+input[type='button']:not(:disabled) {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+button:not(:disabled):hover,
+input[type='submit']:not(:disabled):hover,
+input[type='button']:not(:disabled):hover {
+  transform: scale(1.045);
+}
+
+button:not(:disabled):active,
+input[type='submit']:not(:disabled):active,
+input[type='button']:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+a.ubi-btn,
+a.mat-download {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a.ubi-btn:hover,
+a.mat-download:hover {
+  transform: scale(1.045);
+}
+
+a.ubi-btn:active,
+a.mat-download:active {
+  transform: scale(0.98);
+}
+
+.layout-contained {
+  width: 100%;
+  max-width: min(1320px, 100%);
+  margin-inline: auto;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  button:not(:disabled):hover,
+  button:not(:disabled):active,
+  input[type='submit']:not(:disabled):hover,
+  input[type='submit']:not(:disabled):active,
+  input[type='button']:not(:disabled):hover,
+  input[type='button']:not(:disabled):active,
+  a.ubi-btn:hover,
+  a.ubi-btn:active,
+  a.mat-download:hover,
+  a.mat-download:active {
+    transform: none !important;
+  }
+}

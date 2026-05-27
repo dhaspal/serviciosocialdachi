@@ -1,0 +1,249 @@
+.mat-content {
+  padding: var(--inst-space-inline);
+  padding-top: clamp(1.25rem, 3vw, 1.75rem);
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+  text-align: left;
+}
+
+.mat-lead {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  max-width: 46rem;
+}
+
+.mat-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mat-download {
+  font-size: 12px;
+  font-weight: 900;
+  color: #085041;
+  text-decoration: underline;
+}
+
+.mat-form-section {
+  margin: 1.25rem 0;
+  padding: clamp(1rem, 3vw, 1.25rem);
+  border: 1px solid #eee;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.mat-form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin: 0 0 12px;
+  color: var(--inst-deep);
+}
+
+.mat-form {
+  display: grid;
+  gap: 12px;
+}
+
+.mat-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 12px;
+}
+
+.mat-field {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #444;
+}
+
+.mat-field--full {
+  grid-column: 1 / -1;
+}
+
+.mat-field input,
+.mat-field select,
+.mat-field textarea {
+  font: inherit;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+.mat-submit {
+  justify-self: start;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  min-height: 44px;
+  background: var(--inst-salmon);
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.mat-sent {
+  margin: 0;
+  font-weight: 800;
+  color: #085041;
+}
+
+.mat-faq {
+  margin-top: 1.25rem;
+}
+
+.mat-faq-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+  color: var(--inst-deep);
+}
+
+.mat-faq-list {
+  display: grid;
+  gap: 10px;
+}
+
+.mat-faq-item {
+  border: 1px solid #eee;
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.mat-faq-q {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: #fff8f0;
+  padding: 14px 12px;
+  font-weight: 900;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  min-height: 44px;
+}
+
+.mat-faq-a {
+  margin: 0;
+  padding: 12px 12px 14px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.55;
+  border-top: 1px solid #f0e8df;
+}
+
+.mat-section-label {
+  font-size: clamp(10px, 2.4vw, 11px);
+  font-weight: 700;
+  color: var(--inst-salmon);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 4px;
+}
+
+.mat-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.15rem, 3.5vw, 1.4rem);
+  font-weight: 700;
+  color: var(--inst-deep);
+  margin: 0 0 1.2rem;
+  text-wrap: balance;
+}
+
+.mat-highlight {
+  background: linear-gradient(
+    135deg,
+    rgba(232, 85, 62, 0.12),
+    rgba(240, 165, 0, 0.12)
+  );
+  border-radius: 14px;
+  padding: clamp(1rem, 3vw, 1.2rem);
+  border: 0.5px solid rgba(232, 85, 62, 0.25);
+  margin-bottom: 1rem;
+}
+
+.mat-highlight-title {
+  font-size: clamp(11px, 2.6vw, 12px);
+  font-weight: 700;
+  color: #e8553e;
+  margin: 0 0 4px;
+}
+
+.mat-highlight-body {
+  font-size: clamp(10px, 2.5vw, 11px);
+  color: #2c1810;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.mat-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.mat-step {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 0.5px solid #eee;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+@media (max-width: 380px) {
+  .mat-step {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.mat-step-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  flex-shrink: 0;
+  color: #2c1810;
+}
+
+.mat-step-icon--salmon {
+  background: #fff0e6;
+}
+
+.mat-step-icon--teal {
+  background: #e6f5ee;
+}
+
+.mat-step-icon--blue {
+  background: #eaf0fa;
+}
+
+.mat-step-title {
+  font-size: clamp(11px, 2.6vw, 12px);
+  font-weight: 700;
+  color: #2c1810;
+  margin: 0 0 2px;
+}
+
+.mat-step-body {
+  font-size: clamp(9px, 2.3vw, 10px);
+  color: #888;
+  margin: 0;
+  line-height: 1.45;
+}

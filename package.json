@@ -1,0 +1,12 @@
+{
+  "name": "serviciosocial",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sitio institucional Servicio Social — frontend (Vite/React) + backend (FastAPI)",
+  "scripts": {
+    "install:frontend": "npm install --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "lint": "npm run lint --prefix frontend"
+  }
+}

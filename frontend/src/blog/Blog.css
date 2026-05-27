@@ -1,0 +1,263 @@
+.blog-page {
+  padding: var(--inst-space-inline);
+  padding-top: clamp(1.25rem, 3vw, 1.75rem);
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+  text-align: left;
+}
+
+.blog-kicker {
+  font-size: clamp(10px, 2.4vw, 11px);
+  font-weight: 800;
+  color: var(--inst-salmon);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 6px;
+}
+
+.blog-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.25rem, 3.5vw, 1.65rem);
+  font-weight: 700;
+  color: var(--inst-deep);
+  margin: 0 0 8px;
+}
+
+.blog-sub {
+  font-size: clamp(12px, 2.5vw, 14px);
+  color: #555;
+  line-height: 1.55;
+  margin: 0 0 1.25rem;
+  max-width: 46rem;
+}
+
+.blog-api-note {
+  font-size: clamp(12px, 2.4vw, 13px);
+  color: #8a4a16;
+  background: rgba(240, 165, 0, 0.12);
+  border: 1px solid rgba(240, 165, 0, 0.35);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  margin: 0 0 1rem;
+  max-width: 46rem;
+}
+
+.blog-api-ok {
+  font-size: clamp(12px, 2.4vw, 13px);
+  color: #1d6b45;
+  margin: -0.25rem 0 1rem;
+}
+
+.blog-toolbar {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 720px) {
+  .blog-toolbar {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+  }
+}
+
+.blog-search input {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+.blog-sr-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.blog-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.blog-cat {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 12px;
+  min-height: 40px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.blog-cat--active {
+  border-color: var(--inst-salmon);
+  background: var(--inst-salmon);
+  color: #fff;
+}
+
+.blog-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .blog-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 0;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 12px;
+  align-items: stretch;
+}
+
+.blog-card-body {
+  min-width: 0;
+}
+
+.blog-card-meta {
+  font-size: 11px;
+  font-weight: 700;
+  color: #888;
+  margin: 0 0 6px;
+}
+
+.blog-card-title {
+  font-size: clamp(15px, 2.8vw, 18px);
+  font-weight: 800;
+  color: var(--inst-deep);
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+
+.blog-card-excerpt {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+
+.blog-card-sections-hint {
+  font-size: 11px;
+  line-height: 1.45;
+  color: #777;
+  margin: 0 0 10px;
+}
+
+.blog-card-actions {
+  margin-bottom: 10px;
+}
+
+.blog-read-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--inst-teal);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.blog-read-btn:hover {
+  filter: brightness(1.06);
+}
+
+.blog-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.blog-tag {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff8f0;
+  color: #854f0b;
+}
+
+.blog-share {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.blog-share-label {
+  font-weight: 800;
+  color: #444;
+}
+
+.blog-share-link {
+  color: var(--inst-teal);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.blog-share-link:hover {
+  text-decoration: underline;
+}
+
+.blog-empty {
+  margin: 1rem 0;
+  font-weight: 700;
+  color: #666;
+}
+
+.blog-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.blog-page-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-height: 44px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.blog-page-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.blog-page-status {
+  font-size: 12px;
+  font-weight: 800;
+  color: #555;
+}

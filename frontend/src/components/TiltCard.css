@@ -1,0 +1,43 @@
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+  height: 100%;
+}
+
+.tilt-card__inner {
+  position: relative;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.tilt-card__inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--tilt-glow-x, 50%) var(--tilt-glow-y, 50%),
+    rgba(255, 255, 255, 0.45) 0%,
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tilt-card:hover .tilt-card__inner::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card {
+    transition: none;
+    transform: none !important;
+  }
+
+  .tilt-card__inner::before {
+    display: none;
+  }
+}

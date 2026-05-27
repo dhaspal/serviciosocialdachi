@@ -1,0 +1,140 @@
+.ubi-content {
+  padding: var(--inst-space-inline);
+  padding-top: clamp(1.25rem, 3vw, 1.75rem);
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+  text-align: left;
+}
+
+.ubi-section-label {
+  font-size: clamp(10px, 2.4vw, 11px);
+  font-weight: 700;
+  color: var(--inst-salmon);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 4px;
+}
+
+.ubi-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.15rem, 3.5vw, 1.4rem);
+  font-weight: 700;
+  color: var(--inst-deep);
+  margin: 0 0 8px;
+  text-wrap: balance;
+}
+
+.ubi-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: 14px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .ubi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ubi-map-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.ubi-iframe {
+  width: 100%;
+  height: min(420px, 70svh);
+  border: 0;
+  display: block;
+}
+
+.ubi-map-fallback {
+  min-height: min(420px, 70svh);
+  background: linear-gradient(135deg, #e6f5ee, #9fe1cb);
+}
+
+.ubi-aside {
+  display: grid;
+  gap: 12px;
+}
+
+.ubi-panel {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+}
+
+.ubi-panel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+  color: var(--inst-deep);
+}
+
+.ubi-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.ubi-list--plain .ubi-v {
+  font-weight: 600;
+}
+
+.ubi-k {
+  display: block;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #777;
+  margin-bottom: 2px;
+}
+
+.ubi-v {
+  font-size: 13px;
+  color: #2c1810;
+  font-weight: 700;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+a.ubi-v:hover {
+  text-decoration: underline;
+}
+
+.ubi-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ubi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--inst-deep);
+  color: #fff;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.ubi-btn--wa {
+  background: #128c7e;
+}
+
+.ubi-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}

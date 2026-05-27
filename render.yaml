@@ -1,0 +1,22 @@
+# Despliegue en Render: un solo servicio web (API + sitio estático).
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: serviciosocial
+    runtime: python
+    plan: free
+    buildCommand: >-
+      pip install -r requirements.txt &&
+      npm ci --prefix frontend &&
+      npm run build --prefix frontend
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.8"
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        value: servicio_social
+      - key: API_PREFIX
+        value: /api/v1

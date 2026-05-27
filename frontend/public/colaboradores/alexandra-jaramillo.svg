@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Alexandra Jaramillo Gutierrez">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8553e"/>
+      <stop offset="100%" stop-color="#f0a500"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <circle cx="200" cy="175" r="72" fill="rgba(255,255,255,0.2)"/>
+  <ellipse cx="200" cy="360" rx="110" ry="95" fill="rgba(255,255,255,0.16)"/>
+  <text x="200" y="455" text-anchor="middle" fill="#fff8f0" font-family="Nunito, sans-serif" font-size="28" font-weight="700">AJG</text>
+</svg>

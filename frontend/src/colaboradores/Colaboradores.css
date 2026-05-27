@@ -1,0 +1,233 @@
+.col-section {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--inst-cream);
+}
+
+.col-content {
+  position: relative;
+  z-index: 1;
+  padding: var(--inst-space-inline);
+  padding-top: clamp(1.25rem, 3vw, 1.75rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.col-section-label {
+  font-size: clamp(10px, 2.4vw, 11px);
+  font-weight: 700;
+  color: var(--inst-salmon);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 4px;
+}
+
+.col-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.35rem, 3.8vw, 1.75rem);
+  font-weight: 700;
+  color: var(--inst-deep);
+  margin: 0 0 0.65rem;
+  text-wrap: balance;
+}
+
+.col-lead {
+  font-size: clamp(13px, 2.6vw, 15px);
+  color: #444;
+  line-height: 1.55;
+  margin: 0 0 1.75rem;
+  max-width: 52rem;
+}
+
+.col-project {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(44, 24, 16, 0.08);
+  border-radius: 20px;
+  padding: clamp(1.1rem, 3vw, 1.75rem);
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  box-shadow: 0 12px 40px rgba(44, 24, 16, 0.06);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.col-project::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--col-project-bg-image);
+  background-size: clamp(260px, 52%, 420px);
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.col-project::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.col-project__header,
+.col-project__body {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .col-project::before {
+    background-size: clamp(210px, 68%, 300px);
+    opacity: 0.76;
+  }
+
+  .col-project::after {
+    background: rgba(255, 255, 255, 0.72);
+  }
+}
+
+.col-project__header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(44, 24, 16, 0.08);
+}
+
+.col-project__badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--inst-teal);
+  background: rgba(29, 158, 117, 0.12);
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  margin-bottom: 0.55rem;
+}
+
+.col-project__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  color: var(--inst-deep);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.col-project__body {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.col-project__text {
+  margin: 0;
+  font-size: clamp(13px, 2.5vw, 14.5px);
+  line-height: 1.65;
+  color: #3a2a22;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.col-team__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.05rem, 2.8vw, 1.25rem);
+  color: var(--inst-deep);
+  margin: 0 0 1.25rem;
+}
+
+.col-team__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(14px, 2.8vw, 22px);
+  max-width: 39rem;
+  margin-inline: auto;
+}
+
+.col-card-wrap {
+  width: min(16rem, calc(50% - 10px));
+  flex: 0 1 auto;
+}
+
+@media (max-width: 400px) {
+  .col-card-wrap {
+    width: min(14.75rem, 100%);
+  }
+}
+
+.col-card-wrap .tilt-card__inner {
+  border-radius: 17px;
+  overflow: hidden;
+}
+
+.col-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  border: 1px solid rgba(44, 24, 16, 0.08);
+  border-radius: 17px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(44, 24, 16, 0.08);
+}
+
+.col-card__photo-frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f5ebe0, #e8d5c4);
+}
+
+.col-card__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.col-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  padding: 0.75rem 0.85rem 0.9rem;
+  flex: 1;
+}
+
+.col-card__name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--inst-deep);
+  margin: 0;
+  line-height: 1.22;
+}
+
+.col-card__role {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.col-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  margin-top: auto;
+  padding-top: 0.42rem;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--inst-teal);
+  text-decoration: none;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.col-card__link:hover {
+  color: var(--inst-salmon);
+  gap: 0.55rem;
+}

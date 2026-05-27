@@ -1,0 +1,110 @@
+.hist-content {
+  padding: var(--inst-space-inline);
+  padding-top: clamp(1.25rem, 3vw, 1.75rem);
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+  text-align: left;
+}
+
+.hist-section-label {
+  font-size: clamp(10px, 2.4vw, 11px);
+  font-weight: 700;
+  color: var(--inst-salmon);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 4px;
+}
+
+.hist-lead {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  max-width: 46rem;
+}
+
+.hist-scroll-outer {
+  position: relative;
+  margin-top: 0.25rem;
+  border-radius: 20px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Foto de territorio / montaña: se desplaza con la página (no fixed). Opacidad 70 %. */
+.hist-scroll-outer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(
+    --hist-timeline-bg,
+    url('/historia-timeline-bg.jpg')
+  );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Velo oscuro suave para contraste del texto sobre la foto */
+.hist-scroll-outer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    165deg,
+    rgba(44, 24, 16, 0.52) 0%,
+    rgba(44, 24, 16, 0.35) 38%,
+    rgba(44, 24, 16, 0.55) 100%
+  );
+}
+
+.hist-scroll-outer > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hist-actions {
+  margin-bottom: 1rem;
+}
+
+.hist-actions--after {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+}
+
+.hist-btn-narrativa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border-radius: 12px;
+  border: none;
+  background: var(--inst-salmon);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.hist-btn-narrativa:hover {
+  filter: brightness(1.05);
+}
+
+.hist-btn-narrativa--outline {
+  background: #fff;
+  color: var(--inst-salmon);
+  border: 2px solid var(--inst-salmon);
+}
+
+.hist-btn-narrativa--outline:hover {
+  background: rgba(232, 85, 62, 0.08);
+  filter: none;
+}

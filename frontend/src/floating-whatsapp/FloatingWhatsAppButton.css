@@ -1,0 +1,116 @@
+/* Por debajo de modales/overlays (1000), por encima de nav (300) y pie */
+.floating-wa {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 400;
+  pointer-events: auto;
+}
+
+.floating-wa-btn {
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(145deg, #25d366, #128c7e);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease;
+  position: relative;
+  overflow: visible;
+  font-family: inherit;
+}
+
+.floating-wa-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+.floating-wa-btn:hover {
+  background: linear-gradient(145deg, #2fe576, #0e7568);
+  transform: scale(1.06);
+  box-shadow:
+    0 8px 22px rgba(18, 140, 126, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+.floating-wa-btn:focus-visible {
+  outline: 2px solid var(--inst-teal);
+  outline-offset: 3px;
+}
+
+/* Tooltip */
+.floating-wa-btn::after {
+  content: attr(title);
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--inst-deep);
+  color: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgba(44, 24, 16, 0.25);
+}
+
+.floating-wa-btn:hover::after,
+.floating-wa-btn:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 768px) {
+  .floating-wa {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(20px, env(safe-area-inset-bottom));
+  }
+
+  .floating-wa-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .floating-wa-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Evita tooltip fuera de pantalla en móvil */
+  .floating-wa-btn::after {
+    display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .floating-wa {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-wa-btn {
+    transition: none;
+  }
+
+  .floating-wa-btn:hover {
+    transform: none;
+  }
+}
