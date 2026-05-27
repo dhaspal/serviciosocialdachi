@@ -12,7 +12,7 @@ function safeHttpErrorMessage(status: number): string {
 
 function safeLoginErrorMessage(status: number): string {
   if (status === 401) return 'Credenciales incorrectas.'
-  if (status === 422) return 'Verifica correo y contraseña.'
+  if (status === 422) return 'Verifica usuario y contraseña.'
   if (status === 429) return 'Demasiados intentos. Espera unos minutos.'
   if (status >= 500) return 'El servidor no está disponible. Intenta más tarde.'
   return 'No se pudo iniciar sesión.'
@@ -33,11 +33,11 @@ function extractToken(data: Record<string, unknown>): string | null {
   return typeof v === 'string' && v.length > 0 ? v : null
 }
 
-export async function adminLogin(email: string, password: string) {
+export async function adminLogin(usuario: string, password: string) {
   const res = await fetch(apiUrl('/admin/login'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ email: email.trim(), password }),
+    body: JSON.stringify({ usuario: usuario.trim(), password }),
   })
   const text = await res.text()
   let data: Record<string, unknown> = {}

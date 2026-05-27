@@ -10,7 +10,7 @@ type Props = {
 
 export function AdminLogin({ onNavigate }: Props) {
   const { isAuthenticated, login, logout } = useAdminAuth()
-  const [emailInput, setEmailInput] = useState('')
+  const [usuarioInput, setUsuarioInput] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -21,7 +21,7 @@ export function AdminLogin({ onNavigate }: Props) {
 
   const cerrarSesion = () => {
     logout()
-    setEmailInput('')
+    setUsuarioInput('')
     setPassword('')
     setError(null)
   }
@@ -29,14 +29,14 @@ export function AdminLogin({ onNavigate }: Props) {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError(null)
-    const mail = emailInput.trim()
-    if (!mail || !password) {
-      setError('Indique correo y contraseña.')
+    const usuario = usuarioInput.trim()
+    if (!usuario || !password) {
+      setError('Indique usuario y contraseña.')
       return
     }
     setLoading(true)
     try {
-      await login(mail, password)
+      await login(usuario, password)
       setPassword('')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'No se pudo iniciar sesión.')
@@ -99,17 +99,20 @@ export function AdminLogin({ onNavigate }: Props) {
         <p className="admin-kicker">Administración</p>
         <h1 className="admin-title">Inicio de sesión</h1>
 
-        <form className="admin-form" onSubmit={onSubmit} noValidate>
-          <label className="admin-label" htmlFor="admin-email">
-            Correo electrónico
+        <form className="admin-form" onSubmit={onSubmit} noValidate autoComplete="off">
+          <label className="admin-label" htmlFor="admin-usuario">
+            Usuario
             <input
-              id="admin-email"
+              id="admin-usuario"
               className="admin-input"
-              type="email"
-              name="email"
-              autoComplete="username"
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
+              type="text"
+              name="admin-usuario"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="none"
+              spellCheck={false}
+              value={usuarioInput}
+              onChange={(e) => setUsuarioInput(e.target.value)}
             />
           </label>
           <label className="admin-label" htmlFor="admin-password">
@@ -118,8 +121,8 @@ export function AdminLogin({ onNavigate }: Props) {
               id="admin-password"
               className="admin-input"
               type="password"
-              name="password"
-              autoComplete="current-password"
+              name="admin-password"
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

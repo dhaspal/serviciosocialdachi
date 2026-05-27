@@ -9,13 +9,13 @@ import {
 import { adminLogin as apiAdminLogin } from '../api/client'
 
 const STORAGE_TOKEN = 'ie_dachi_admin_token'
-const STORAGE_EMAIL = 'ie_dachi_admin_email'
+const STORAGE_USER = 'ie_dachi_admin_user'
 
 type AdminAuthState = {
   token: string | null
   email: string | null
   isAuthenticated: boolean
-  login: (email: string, password: string) => Promise<void>
+  login: (usuario: string, password: string) => Promise<void>
   logout: () => void
 }
 
@@ -24,7 +24,12 @@ const AdminAuthContext = createContext<AdminAuthState | null>(null)
 function readStoredSession(): { token: string | null; email: string | null } {
   try {
     const token = sessionStorage.getItem(STORAGE_TOKEN)
-    const email = sessionStorage.getItem(STORAGE_EMAIL)
+    const email = sessionStorage.getItem(STORAGE_USER)
+    if (token === 'dev-no-token') {
+      sessionStorage.removeItem(STORAGE_TOKEN)
+      sessionStorage.removeItem(STORAGE_USER)
+      return { token: null, email: null }
+    }
     return {
       token: token && token.length > 0 ? token : null,
       email: email && email.length > 0 ? email : null,
@@ -43,8 +48,8 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     try {
       if (t) sessionStorage.setItem(STORAGE_TOKEN, t)
       else sessionStorage.removeItem(STORAGE_TOKEN)
-      if (e) sessionStorage.setItem(STORAGE_EMAIL, e)
-      else sessionStorage.removeItem(STORAGE_EMAIL)
+      if (e) sessionStorage.setItem(STORAGE_USER, e)
+      else sessionStorage.removeItem(STORAGE_USER)
     } catch {
       /* ignore */
     }
