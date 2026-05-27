@@ -181,13 +181,6 @@ export function Inicio({ onNavigate }: Props) {
               >
                 {slide.ctaLabel}
               </button>
-              <button
-                type="button"
-                className="home-slider-ghost"
-                onClick={() => onNavigate('ubicacion')}
-              >
-                Ubicación y contacto
-              </button>
             </div>
           </div>
         </div>
