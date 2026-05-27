@@ -24,10 +24,10 @@ OpenAPI interactiva: `{BASE}/docs` (Swagger UI).
 
 | Método | Ruta relativa al prefijo API | Cuerpo | Respuesta |
 |--------|------------------------------|--------|-----------|
-| `POST` | `/admin/login` | `{ "email", "password" }` | Sesión de desarrollo (`token_placeholder`, `expira`, …) |
+| `POST` | `/admin/login` | `{ "usuario", "password" }` | Sesión (`token_placeholder`, `expira`, …) |
 | `GET` | `/admin/metricas` | — | Totales agregados (`usuarios_total`, `productos_total`, `posts_total`, `items_galeria_total`) |
 
-**Login (desarrollo):** si ya hay usuarios en BD, contraseña de prueba **`admin123`**. Si no hay usuarios, el login informa que primero hay que crear uno con `POST /admin/usuarios`.
+**Login:** valida `usuario` y `password` contra `admin_users` (contraseña con hash bcrypt). Para crear el administrador inicial: `python scripts/ensure_admin.py` (variables `ADMIN_USUARIO`, `ADMIN_PASSWORD` en `.env`).
 
 ### Usuarios administradores — recurso `/admin/usuarios`
 
@@ -35,7 +35,7 @@ OpenAPI interactiva: `{BASE}/docs` (Swagger UI).
 |--------|------|--------|
 | `GET` | `/admin/usuarios` | — |
 | `GET` | `/admin/usuarios/{usuario_id}` | — |
-| `POST` | `/admin/usuarios` | `{ "email", "nombre", "rol?" }` |
+| `POST` | `/admin/usuarios` | `{ "usuario", "nombre", "rol?", "password" }` |
 | `PUT` | `/admin/usuarios/{usuario_id}` | `{ "email", "nombre", "rol", "activo", "password?" }` — reemplazo completo |
 | `PATCH` | `/admin/usuarios/{usuario_id}` | `{ "nombre?", "rol?", "activo?" }` |
 | `DELETE` | `/admin/usuarios/{usuario_id}` | — |

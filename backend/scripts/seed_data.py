@@ -63,29 +63,6 @@ async def seed(force: bool) -> None:
 
     now = utcnow()
 
-    await db["admin_users"].insert_many(
-        [
-            {
-                "email": "admin@ejemplo.org",
-                "nombre": "Administrador",
-                "rol": "admin",
-                "activo": True,
-                "password_hash": "cambiar-por-bcrypt",
-                "creado_en": now,
-                "actualizado_en": now,
-            },
-            {
-                "email": "editor@ejemplo.org",
-                "nombre": "Editor",
-                "rol": "editor",
-                "activo": True,
-                "password_hash": "cambiar-por-bcrypt",
-                "creado_en": now,
-                "actualizado_en": now,
-            },
-        ]
-    )
-
     await db["tienda_categorias"].insert_many(
         [
             {
@@ -241,7 +218,7 @@ async def seed(force: bool) -> None:
 
     print("Datos de ejemplo insertados correctamente.")
     print(f"  Base de datos: {MONGODB_DB}")
-    print("  Login admin (dev): admin@ejemplo.org / admin123")
+    print("  Cree un administrador con POST /api/v1/admin/usuarios (email, nombre, password).")
 
     client.close()
 

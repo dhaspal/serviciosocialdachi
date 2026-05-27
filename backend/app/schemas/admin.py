@@ -1,17 +1,18 @@
 from datetime import datetime
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field
 
 
 class AdminLogin(BaseModel):
-    email: EmailStr
+    usuario: str = Field(min_length=1, max_length=120)
     password: str = Field(min_length=1)
 
 
 class AdminUserCreate(BaseModel):
-    email: EmailStr
+    usuario: str = Field(min_length=1, max_length=120)
     nombre: str = Field(min_length=1, max_length=120)
     rol: str = Field(default="admin", max_length=50)
+    password: str = Field(min_length=8, max_length=128)
 
 
 class AdminUserUpdate(BaseModel):
@@ -23,14 +24,15 @@ class AdminUserUpdate(BaseModel):
 class AdminUserReplace(BaseModel):
     """Cuerpo para PUT: reemplazo completo del usuario (sin tocar id ni creado_en)."""
 
-    email: EmailStr
+    usuario: str = Field(min_length=1, max_length=120)
     nombre: str = Field(min_length=1, max_length=120)
     rol: str = Field(default="admin", max_length=50)
     activo: bool = True
     password: str | None = Field(
         default=None,
-        min_length=1,
-        description="Si se envía, sustituye la contraseña (modo desarrollo).",
+        min_length=8,
+        max_length=128,
+        description="Si se envía, sustituye la contraseña.",
     )
 
 

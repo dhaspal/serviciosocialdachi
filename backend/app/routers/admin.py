@@ -12,7 +12,9 @@ from app.schemas.admin import (
     AdminUserReplace,
     AdminUserUpdate,
 )
+from app.utils.admin_users import normalize_usuario, utcnow
 from app.utils.mongo import doc_with_id, docs_with_id, parse_oid
+from app.utils.passwords import hash_password, verify_password
 
 router = APIRouter(prefix="/admin", tags=["administrador"])
 
@@ -25,25 +27,20 @@ def db_dep():
 
 @router.post("/login", response_model=AdminSesionRespuesta)
 async def admin_login(body: AdminLogin, db=Depends(db_dep)):
-    """Autenticación de desarrollo: valida credenciales contra la colección o acepta cualquier par si no hay usuarios."""
+    """Autenticación: valida usuario y contraseña hasheada en admin_users."""
     col = db[COL_ADMIN_USERS]
-    user = await col.find_one({"email": body.email})
+    login = normalize_usuario(body.usuario)
+    user = await col.find_one({"usuario": login})
     if user is None:
-        count = await col.count_documents({})
-        if count == 0:
-            return AdminSesionRespuesta(
-                mensaje="Sin usuarios en BD: usa POST /admin/usuarios primero o crea uno.",
-                token_placeholder="dev-no-token",
-                expira=datetime.now(timezone.utc) + timedelta(hours=1),
-            )
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
-    # En producción: verificar hash de contraseña (bcrypt, etc.)
-    if body.password != "admin123":
+    if not user.get("activo", True):
+        raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+    if not verify_password(body.password, user.get("password_hash")):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     return AdminSesionRespuesta(
-        mensaje="Sesión iniciada (modo desarrollo)",
+        mensaje="Sesión iniciada",
         token_placeholder="dev-token-reemplazar-con-jwt",
-        expira=datetime.now(timezone.utc) + timedelta(hours=8),
+        expira=utcnow() + timedelta(hours=8),
     )
 
 
@@ -64,17 +61,22 @@ async def admin_metricas(db=Depends(db_dep)):
 
 @router.get("/usuarios")
 async def listar_usuarios_admin(db=Depends(db_dep)):
-    cursor = db[COL_ADMIN_USERS].find().sort("email", 1)
+    cursor = db[COL_ADMIN_USERS].find().sort("usuario", 1)
     docs = await cursor.to_list(500)
     return docs_with_id(docs)
 
 
 @router.post("/usuarios", status_code=201)
 async def crear_usuario_admin(body: AdminUserCreate, db=Depends(db_dep)):
-    doc = body.model_dump()
-    doc["password_hash"] = "cambiar-por-bcrypt"
+    usuario = normalize_usuario(body.usuario)
+    existing = await db[COL_ADMIN_USERS].find_one({"usuario": usuario})
+    if existing:
+        raise HTTPException(status_code=409, detail="El usuario ya existe")
+    doc = body.model_dump(exclude={"password", "usuario"})
+    doc["usuario"] = usuario
+    doc["password_hash"] = hash_password(body.password)
     doc["activo"] = True
-    doc["creado_en"] = datetime.now(timezone.utc)
+    doc["creado_en"] = utcnow()
     r = await db[COL_ADMIN_USERS].insert_one(doc)
     created = await db[COL_ADMIN_USERS].find_one({"_id": r.inserted_id})
     return doc_with_id(created)
@@ -99,7 +101,7 @@ async def reemplazar_usuario_admin(
     now = datetime.now(timezone.utc)
     new_doc: dict = {
         "_id": oid,
-        "email": body.email,
+        "usuario": normalize_usuario(body.usuario),
         "nombre": body.nombre,
         "rol": body.rol,
         "activo": body.activo,
@@ -108,7 +110,7 @@ async def reemplazar_usuario_admin(
         "password_hash": old.get("password_hash", "cambiar-por-bcrypt"),
     }
     if body.password:
-        new_doc["password_hash"] = "cambiar-por-bcrypt"
+        new_doc["password_hash"] = hash_password(body.password)
     await db[COL_ADMIN_USERS].replace_one({"_id": oid}, new_doc)
     out = await db[COL_ADMIN_USERS].find_one({"_id": oid})
     return doc_with_id(out)
