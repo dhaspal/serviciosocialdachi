@@ -3,7 +3,8 @@ import {
   LOGO_UNIVERSIDAD_PEREIRA,
   UNIVERSIDAD_PEREIRA_NOMBRE,
 } from '../brand/logo'
-import { env } from '../config/env'
+import { INSTITUTION_CONTACT } from '../brand/institutionContact'
+import { INSTITUTION_FULL_NAME } from '../brand/institutionName'
 import type { SectionId } from '../sections/types'
 import './SiteFooter.css'
 
@@ -24,6 +25,8 @@ type Props = {
 }
 
 export function SiteFooter({ onNavigate }: Props) {
+  const { direccion, telefono, telefonoDigits } = INSTITUTION_CONTACT
+
   return (
     <footer className="site-footer">
       <div className="site-footer-inner layout-contained">
@@ -38,7 +41,7 @@ export function SiteFooter({ onNavigate }: Props) {
               decoding="async"
             />
             <div>
-              <p className="site-footer-name">{env.appName}</p>
+              <p className="site-footer-name">{INSTITUTION_FULL_NAME}</p>
               <p className="site-footer-tag">Comunidad educativa Embera Chamí</p>
             </div>
           </div>
@@ -77,56 +80,18 @@ export function SiteFooter({ onNavigate }: Props) {
         <div className="site-footer-col">
           <p className="site-footer-heading">Contacto</p>
           <ul className="site-footer-list site-footer-list--plain">
-            <li>{env.institutionAddress}</li>
-            {env.institutionEmail ? (
-              <li>
-                <a href={`mailto:${env.institutionEmail}`}>
-                  {env.institutionEmail}
-                </a>
-              </li>
-            ) : null}
-            {env.institutionPhone ? <li>Tel. {env.institutionPhone}</li> : null}
-            {env.institutionMobile ? <li>Cel. {env.institutionMobile}</li> : null}
-          </ul>
-        </div>
-
-        <div className="site-footer-col">
-          <p className="site-footer-heading">Redes sociales</p>
-          <ul className="site-footer-social">
-            {env.facebookUrl ? (
-              <li>
-                <a href={env.facebookUrl} target="_blank" rel="noreferrer">
-                  Facebook
-                </a>
-              </li>
-            ) : null}
-            {env.instagramUrl ? (
-              <li>
-                <a href={env.instagramUrl} target="_blank" rel="noreferrer">
-                  Instagram
-                </a>
-              </li>
-            ) : null}
-            {env.youtubeUrl ? (
-              <li>
-                <a href={env.youtubeUrl} target="_blank" rel="noreferrer">
-                  YouTube
-                </a>
-              </li>
-            ) : null}
-            {!env.facebookUrl && !env.instagramUrl && !env.youtubeUrl ? (
-              <li className="site-footer-muted">
-                Configura URLs en <code>.env</code> (VITE_FACEBOOK_URL, etc.).
-              </li>
-            ) : null}
+            <li>{direccion}</li>
+            <li>
+              <a href={`tel:${telefonoDigits}`}>{telefono}</a>
+            </li>
           </ul>
         </div>
       </div>
 
       <div className="site-footer-bar">
         <p className="site-footer-copy">
-          © {new Date().getFullYear()} {env.appName}. Todos los derechos
-          reservados.
+          © {new Date().getFullYear()} {INSTITUTION_FULL_NAME}. Todos los
+          derechos reservados.
         </p>
       </div>
     </footer>

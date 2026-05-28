@@ -12,7 +12,6 @@ import os
 import sys
 
 from dotenv import load_dotenv
-from motor.motor_asyncio import AsyncIOMotorClient
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
@@ -20,10 +19,10 @@ if ROOT not in sys.path:
 
 load_dotenv(os.path.join(ROOT, ".env"))
 
+from app.database import close_db, connect_db, get_database
 from app.utils.admin_users import normalize_usuario, utcnow
 from app.utils.passwords import hash_password
 
-MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
 MONGODB_DB = os.getenv("MONGODB_DB", "servicio_social")
 
 DEFAULT_USUARIO = os.getenv("ADMIN_USUARIO", "Admindachidadakera")
@@ -32,9 +31,8 @@ DEFAULT_NOMBRE = os.getenv("ADMIN_NOMBRE", "Administrador institucional")
 
 
 async def ensure_admin() -> None:
-    client = AsyncIOMotorClient(MONGODB_URI)
-    db = client[MONGODB_DB]
-    await db.command("ping")
+    await connect_db()
+    db = get_database()
 
     usuario = normalize_usuario(DEFAULT_USUARIO)
     now = utcnow()
@@ -61,7 +59,7 @@ async def ensure_admin() -> None:
     else:
         print(f"Administrador actualizado: {DEFAULT_USUARIO}")
 
-    client.close()
+    await close_db()
 
 
 def main() -> None:

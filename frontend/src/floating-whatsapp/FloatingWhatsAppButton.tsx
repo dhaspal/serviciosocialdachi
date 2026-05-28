@@ -1,4 +1,4 @@
-import { env } from '../config/env'
+import { INSTITUTION_FULL_NAME } from '../brand/institutionName'
 import { institutionWhatsappDigits, openInstitutionWhatsApp } from '../config/whatsappInstitution'
 import './FloatingWhatsAppButton.css'
 
@@ -8,7 +8,7 @@ export function FloatingWhatsAppButton() {
 
   const handleClick = () => {
     openInstitutionWhatsApp(
-      `Hola. Me comunico desde la página web de la ${env.appName}. Me gustaría recibir información.`,
+      `Hola. Me comunico desde la página web de la ${INSTITUTION_FULL_NAME}. Me gustaría recibir información.`,
     )
   }
 

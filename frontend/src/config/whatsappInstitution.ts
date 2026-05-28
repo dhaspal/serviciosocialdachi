@@ -1,25 +1,13 @@
-import { env } from './env'
+import { INSTITUTION_CONTACT } from '../brand/institutionContact'
 
-function digitsOnly(value: string): string {
-  return value.replace(/\D/g, '')
-}
-
-/**
- * Dígitos del WhatsApp institucional para `wa.me`.
- * Prioriza `VITE_INST_WHATSAPP_E164`; si no, `VITE_INST_MOBILE`.
- */
 export function institutionWhatsappDigits(): string {
-  if (env.whatsappE164) return digitsOnly(env.whatsappE164)
-  if (env.institutionMobile) return digitsOnly(env.institutionMobile)
-  return ''
+  return INSTITUTION_CONTACT.telefonoDigits
 }
 
 export function openInstitutionWhatsApp(prefilledText: string): void {
   const wa = institutionWhatsappDigits()
   const q = encodeURIComponent(prefilledText)
-  const url = wa
-    ? `https://wa.me/${wa}?text=${q}`
-    : `https://wa.me/?text=${q}`
+  const url = `https://wa.me/${wa}?text=${q}`
   window.open(url, '_blank', 'noopener,noreferrer')
 }
 
