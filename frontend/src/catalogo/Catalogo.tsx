@@ -5,6 +5,7 @@ import { useAdminAuth } from '../admin/AdminAuthContext'
 import '../admin/AdminManage.css'
 import { CatalogoAdminPanel } from './CatalogoAdminPanel'
 import { CATALOGO_FILTERS, PRODUCTOS, type Producto } from './data'
+import { mergeCategoriaNombres } from './categoriasMerge'
 import { mapApiProductoToProducto, normalizeCategoriaKey } from './mapFromApi'
 import {
   catalogProductInterestMessage,
@@ -32,28 +33,14 @@ export function Catalogo() {
           getProductos({ solo_activos: true, limit: 500 }),
         ])
         if (cancelled) return
-        const activas = cats
-          .filter((c) => c.activo !== false)
-          .sort((a, b) => (a.orden ?? 0) - (b.orden ?? 0))
-        let filtros: { id: string; label: string }[]
-        if (activas.length > 0) {
-          filtros = [
-            { id: 'todos', label: 'Todos' },
-            ...activas.map((c) => ({
-              id: normalizeCategoriaKey(c.nombre),
-              label: c.nombre,
-            })),
-          ]
-        } else {
-          const nombres = [...new Set(prods.map((p) => p.categoria))].sort()
-          filtros = [
-            { id: 'todos', label: 'Todos' },
-            ...nombres.map((nombre) => ({
-              id: normalizeCategoriaKey(nombre),
-              label: nombre,
-            })),
-          ]
-        }
+        const nombres = mergeCategoriaNombres(cats, prods, { soloActivas: true })
+        const filtros: { id: string; label: string }[] = [
+          { id: 'todos', label: 'Todos' },
+          ...nombres.map((nombre) => ({
+            id: normalizeCategoriaKey(nombre),
+            label: nombre,
+          })),
+        ]
         setApiFilters(filtros)
         setApiProducts(
           prods.map((p, i) => mapApiProductoToProducto(p, i)),

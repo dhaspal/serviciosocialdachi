@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
 import {
   deleteCategoria,
@@ -11,6 +11,7 @@ import {
   putProducto,
 } from '../api/tienda'
 import type { ApiCategoriaTienda, ApiProducto } from '../api/types'
+import { mergeCategoriaNombres } from './categoriasMerge'
 import '../admin/AdminManage.css'
 
 type Props = {
@@ -60,11 +61,20 @@ export function CatalogoAdminPanel({ token }: Props) {
     void refresh()
   }, [refresh])
 
-  useEffect(() => {
-    if (categorias.length > 0 && !pCategoria.trim()) {
-      setPCategoria(categorias[0].nombre)
+  const categoriaOpciones = useMemo(() => {
+    const merged = mergeCategoriaNombres(categorias, productos)
+    if (pCategoria.trim() && !merged.includes(pCategoria)) {
+      return [pCategoria, ...merged]
     }
-  }, [categorias, pCategoria])
+    return merged
+  }, [categorias, productos, pCategoria])
+
+  useEffect(() => {
+    if (editProdId || categoriaOpciones.length === 0) return
+    if (!pCategoria.trim() || !categoriaOpciones.includes(pCategoria)) {
+      setPCategoria(categoriaOpciones[0])
+    }
+  }, [categoriaOpciones, editProdId, pCategoria])
 
   const flash = (msg: string) => {
     setNotice(msg)
@@ -87,7 +97,7 @@ export function CatalogoAdminPanel({ token }: Props) {
     setPStock('0')
     setPActivo(true)
     setEditProdId(null)
-    if (categorias[0]) setPCategoria(categorias[0].nombre)
+    if (categoriaOpciones[0]) setPCategoria(categoriaOpciones[0])
   }
 
   const onSaveCategoria = async (e: FormEvent) => {
@@ -101,12 +111,15 @@ export function CatalogoAdminPanel({ token }: Props) {
         orden: Number.isFinite(orden) ? orden : 0,
         activo: catActivo,
       }
+      const nombreGuardado = body.nombre
       if (editCatId) {
         await putCategoria(token, editCatId, body)
         flash('Categoría actualizada.')
+        setPCategoria(nombreGuardado)
       } else {
         await postCategoria(token, body)
-        flash('Categoría creada.')
+        flash('Categoría creada. Ya puede usarla en «Nuevo producto».')
+        setPCategoria(nombreGuardado)
       }
       resetCatForm()
       await refresh()
@@ -346,18 +359,25 @@ export function CatalogoAdminPanel({ token }: Props) {
               </label>
             </div>
             <label className="admin-label-sm">
-              Categoría (texto libre; debe coincidir con una categoría de tienda)
-              <input
-                list="cat-suggestions"
+              Categoría
+              <select
                 value={pCategoria}
                 onChange={(e) => setPCategoria(e.target.value)}
                 required
-              />
-              <datalist id="cat-suggestions">
-                {categorias.map((c) => (
-                  <option key={c.id} value={c.nombre} />
-                ))}
-              </datalist>
+                disabled={categoriaOpciones.length === 0}
+              >
+                {categoriaOpciones.length === 0 ? (
+                  <option value="">
+                    Cree una categoría o recargue los datos
+                  </option>
+                ) : (
+                  categoriaOpciones.map((nombre) => (
+                    <option key={nombre} value={nombre}>
+                      {nombre}
+                    </option>
+                  ))
+                )}
+              </select>
             </label>
             <label className="admin-label-sm">
               SKU (opcional)
